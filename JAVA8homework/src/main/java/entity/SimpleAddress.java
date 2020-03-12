@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.Objects;
+
 public class SimpleAddress {
 
   private String street;
@@ -14,4 +16,17 @@ public class SimpleAddress {
     this.city = city;
   }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SimpleAddress that = (SimpleAddress) o;
+        return Objects.equals(street, that.street) &&
+            Objects.equals(city, that.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(street, city);
+    }
 }
