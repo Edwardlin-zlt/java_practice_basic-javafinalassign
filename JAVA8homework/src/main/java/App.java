@@ -16,7 +16,7 @@ public class App {
         personStream.forEach(App::printPersonInfo);
 
         Stream<Person> personStream2 = personService.getPersonByMasterNumbers(Arrays.asList(new MasterNumber("3")));
-        personStream2.forEach(App::printPersonInfo // 真面向测试编程);
+        personStream2.forEach(App::printPersonInfo); // 真面向测试编程
 
 
     }
