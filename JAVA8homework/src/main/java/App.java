@@ -23,7 +23,7 @@ public class App {
 
     public static void printPersonInfo(Person person) {
         System.out.println("==============================");
-        System.out.println("Person" + person.getMasterNumber());
+        System.out.println("Person " + person.getMasterNumber());
         System.out.println(person.getAddress());
         System.out.println(person.getTelephones());
         System.out.println(person.getEmails());

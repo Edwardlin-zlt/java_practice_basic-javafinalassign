@@ -5,11 +5,9 @@ import entity.Person;
 import entity.Telephone;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,24 +31,16 @@ public class PersonSet {
     }
 
     public Stream<Person> groupToPeople() {
-        // TODO: group the data to Stream<Person>
-        // 根据masterNumbers中的masterNumber拿到List<Address>,List<Telephone>, List<Email>
-        // 中的对应数据
-        // 构造List<Person>, .stream() 得到Stream<Person>
-        // Can use Collectors.groupingBy method
         Map<String, List<Address>> colAddress = addresses.stream().collect(Collectors.groupingBy(Address::getMasterNumber));
         Map<String, List<Telephone>> colTelephones = telephones.stream().collect(Collectors.groupingBy(Telephone::getMasterNumber));
         Map<String, List<Email>> colEmails = emails.stream().collect(Collectors.groupingBy(Email::getMasterNumber));
-        ArrayList<Person> people = new ArrayList<>();
-        for (MasterNumber masterNumber : masterNumbers) {
-            Address tmpAddress = colAddress.getOrDefault(masterNumber.getNumber(), Collections.singletonList(null)).get(0);
-            List<Telephone> tmpTelephone = colTelephones.getOrDefault(masterNumber.getNumber(), new ArrayList<>());
-            List<Email> tmpEmail = colEmails.getOrDefault(masterNumber.getNumber(), new ArrayList<>());
-            people.add(new Person(masterNumber.getNumber(), tmpTelephone, tmpAddress, tmpEmail));
-        }
-        return people.stream();
-
-        // Can add helper method
+        return masterNumbers.stream().map(MasterNumber::getNumber)
+            .map(masterNumber -> new Person(
+                masterNumber,
+                colTelephones.getOrDefault(masterNumber, new ArrayList<>()),
+                colAddress.getOrDefault(masterNumber, Collections.singletonList(null)).get(0),
+                colEmails.getOrDefault(masterNumber, new ArrayList<>())
+            ));
     }
 
     public List<Address> getAddresses() {

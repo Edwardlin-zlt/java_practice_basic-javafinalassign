@@ -25,7 +25,7 @@ public class Person {
     }
 
     public Optional<SimpleAddress> getSimpleAddress() {
-        return Optional.ofNullable(address).map(s -> s.getSimpleAddress()); // SimpleAddress的构造函数不可能生成null, 所以s.getSimpleAddress()也不可能生成null?
+        return Optional.ofNullable(address).map(Address::getSimpleAddress); // SimpleAddress的构造函数不可能生成null, 所以s.getSimpleAddress()也不可能生成null?
     }
 
     @Override
