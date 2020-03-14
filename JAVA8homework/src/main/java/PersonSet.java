@@ -31,9 +31,12 @@ public class PersonSet {
     }
 
     public Stream<Person> groupToPeople() {
-        Map<String, List<Address>> colAddress = addresses.stream().collect(Collectors.groupingBy(Address::getMasterNumber));
-        Map<String, List<Telephone>> colTelephones = telephones.stream().collect(Collectors.groupingBy(Telephone::getMasterNumber));
-        Map<String, List<Email>> colEmails = emails.stream().collect(Collectors.groupingBy(Email::getMasterNumber));
+        Map<String, List<Address>> colAddress = addresses.stream()
+            .collect(Collectors.groupingBy(Address::getMasterNumber));
+        Map<String, List<Telephone>> colTelephones = telephones.stream()
+            .collect(Collectors.groupingBy(Telephone::getMasterNumber));
+        Map<String, List<Email>> colEmails = emails.stream()
+            .collect(Collectors.groupingBy(Email::getMasterNumber));
         return masterNumbers.stream().map(MasterNumber::getNumber)
             .map(masterNumber -> new Person(
                 masterNumber,
